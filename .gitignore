@@ -1,3 +1,12 @@
+# Force Cython usage
+*.cpp
+*.h
+!SpookyV2.cpp
+!SpookyV2.h
+
+# IDE
+.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
