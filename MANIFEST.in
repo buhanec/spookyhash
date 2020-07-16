@@ -1,0 +1,1 @@
+include src/*.pyx src/*.pxd src/*.cpp src/*.h
