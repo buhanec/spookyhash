@@ -1,4 +1,4 @@
-# spookyhash
+# spookyhash [<img src="https://img.shields.io/travis/buhanec/spookyhash/master.svg?label=Travis+CI&style=flat-square)" align="right">](https://travis-ci.org/buhanec/spookyhash)
 
 A Python wrapper of Bob Jenkins' [SpookyHash version 2](http://burtleburtle.net/bob/hash/spooky.html). Offers 32- 64- and 128-bit oneshot and incremental hashes.   
 
