@@ -8,6 +8,10 @@ A Python wrapper of Bob Jenkins' [SpookyHash version 2](http://burtleburtle.net/
 
 # Usage
 
+## Installation
+
+Available through PyPI using `pip install spookyhash`.
+
 ## Oneshot Hashes
 
 ```python
