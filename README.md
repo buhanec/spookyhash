@@ -10,7 +10,7 @@ A Python wrapper of Bob Jenkins' [SpookyHash version 2](http://burtleburtle.net/
 
 ## Installation
 
-Available through PyPI using `pip install spookyhash`.
+Available through [spookyhash - PyPI](https://pypi.org/project/spookyhash/) using `pip install spookyhash`.
 
 ## Oneshot Hashes
 
