@@ -1,0 +1,4 @@
+cython
+hypothesis
+pip-tools
+pytest
