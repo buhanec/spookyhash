@@ -7,7 +7,8 @@ with open('README.md') as f:
 setup(
     name='spookyhash',
     version='2.0.0',
-    author='Alen Buhanec <alen.buhanec@gmail.com>',
+    author='Alen Buhanec',
+    author_email='<alen.buhanec@gmail.com>',
     license='MIT',
     description='A Python wrapper for SpookyHash version 2',
     long_description=long_description,
