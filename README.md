@@ -1,4 +1,4 @@
-# spookyhash [<img src="https://img.shields.io/travis/buhanec/spookyhash/master.svg?label=Travis+CI&style=flat-square)" align="right">](https://travis-ci.org/buhanec/spookyhash)
+# spookyhash [<img src="https://img.shields.io/travis/buhanec/spookyhash/master.svg?label=Travis+CI&style=flat-square" align="right">](https://travis-ci.org/buhanec/spookyhash) [<img src="https://img.shields.io/azure-devops/build/buhanec/spookyhash/2?label=Azure%20DevOps%20build&style=flat-square" align="right">](https://dev.azure.com/buhanec/spookyhash/_build)
 
 A Python wrapper of Bob Jenkins' [SpookyHash version 2](http://burtleburtle.net/bob/hash/spooky.html). Offers 32- 64- and 128-bit oneshot and incremental hashes.   
 
