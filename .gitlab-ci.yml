@@ -1,0 +1,15 @@
+cache:
+  paths:
+    - venv/
+
+before_script:
+  - python3 -V
+  - python3 -m venv venv
+  - source venv/bin/activate
+  - pip install --upgrade pytest
+  - pip install -r requirements.txt
+
+run_tests:
+  script:
+    - pytest tests
+  stage: test

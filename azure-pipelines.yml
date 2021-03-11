@@ -17,7 +17,7 @@ schedules:
     displayName: Daily build
     branches:
       include:
-        - master
+        - main
     always: true
 
 pool:
@@ -31,11 +31,17 @@ strategy:
     linux38:
       versionSpec: '3.8'
       vmImage: ubuntu-latest
+    linux39:
+      versionSpec: '3.9'
+      vmImage: ubuntu-latest
     windows37:
       versionSpec: '3.7'
       vmImage: windows-latest
     windows38:
       versionSpec: '3.8'
+      vmImage: windows-latest
+    windows39:
+      versionSpec: '3.9'
       vmImage: windows-latest
 
 steps:
