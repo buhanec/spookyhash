@@ -11,5 +11,6 @@ before_script:
 
 run_tests:
   script:
+    - python setup.py install
     - pytest tests
   stage: test
