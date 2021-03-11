@@ -6,7 +6,7 @@ with open('README.md') as f:
 
 setup(
     name='spookyhash',
-    version='2.0.1',
+    version='2.0.2',
     author='Alen Buhanec',
     author_email='<alen.buhanec@gmail.com>',
     license='MIT',
