@@ -86,8 +86,8 @@ cdef class _Hash:
         self.__hash.Final(&digest[0], &digest[1])
         return (<char*> digest)[:self.digest_size]
 
-    cpdef bytes hexdigest(_Hash self):
-        return binascii.hexlify(self.digest())
+    cpdef str hexdigest(_Hash self):
+        return binascii.hexlify(self.digest()).decode('utf-8')
 
     cpdef int final(_Hash self):
         raise NotImplementedError()
