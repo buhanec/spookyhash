@@ -40,7 +40,7 @@ def test_hash32_inc_consistent(fragments, seed):
         sh.update(fragment)
     assert sh.digest_size == 4
     assert struct.unpack('=L', sh.digest())[0] == sh.final()
-    assert sh.hexdigest() == hexlify(sh.digest())
+    assert sh.hexdigest() == hexlify(sh.digest()).decode('utf-8')
 
 
 @pytest.mark.parametrize('fragments, seed, expected', [
@@ -72,7 +72,7 @@ def test_hash64_inc_consistent(fragments, seed):
         sh.update(fragment)
     assert sh.digest_size == 8
     assert struct.unpack('=Q', sh.digest())[0] == sh.final()
-    assert sh.hexdigest() == hexlify(sh.digest())
+    assert sh.hexdigest() == hexlify(sh.digest()).decode('utf-8')
 
 
 @pytest.mark.parametrize('fragments, seed1, seed2, expected1, expected2', [
@@ -111,7 +111,7 @@ def test_hash128_inc_consistent(fragments, seed1, seed2):
     assert sh.digest_size == 16
     assert struct.unpack('=QQ', sh.digest()) == sh.final_pair()
     assert sh.final_pair()[1] << 64 | sh.final_pair()[0] == sh.final()
-    assert sh.hexdigest() == hexlify(sh.digest())
+    assert sh.hexdigest() == hexlify(sh.digest()).decode('utf-8')
 
 
 @pytest.mark.parametrize('message, seed, expected', [
