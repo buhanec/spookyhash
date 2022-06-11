@@ -50,9 +50,14 @@ Available through [spookyhash - PyPI](https://pypi.org/project/spookyhash/) usin
 >>> sh.update(b'world')
 >>> sh.final()
 2617184861
+>>> sh.hexdigest()
+'5d12ff9b'
 
 >>> spookyhash.Hash64(b'hello ', seed=123).update(b'world').final()
 5719863273689036421
+
+>>> spookyhash.Hash64(b'hello ', seed=123).update(b'world').hexdigest()
+'85b609a05709614f'
 
 >>> sh = spookyhash.Hash128(seed1=123_000, seed2=456_000)
 >>> sh.update(b'hello world')
@@ -60,6 +65,23 @@ Available through [spookyhash - PyPI](https://pypi.org/project/spookyhash/) usin
 144121310386202441278894605216246194925
 >>> sh.final_pair()
 (12678109464562819821, 7812831891108919044)
+>>> sh.hexdigest()
+'ede2c8f262b1f1af04f763f735c16c6c'
+```
+
+## `memoryview` Support
+
+Includes `memoryview` compatible types, such as NumPy arrays.
+
+```python
+>>> import spookyhash
+>>> import numpy as np
+
+>>> spookyhash.Hash64(np.arange(100)).hexdigest()
+'43ab5363ad362c74'
+
+>>> spookyhash.Hash64(memoryview(b'hello world')).hexdigest()
+'5d12ff9b81984ece'
 ```
 
 # Platform Independence
