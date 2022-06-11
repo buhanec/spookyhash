@@ -5,3 +5,32 @@ requires = [
     "cython"
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "spookyhash"
+description = "A Python wrapper for SpookyHash version 2"
+readme = "README.md"
+keywords = ["SpookyHash", "hashlib"]
+license = {text = "MIT"}
+classifiers = [
+    "Topic :: Software Development :: Libraries",
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Typing :: Typed",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+test = ["pytest", "hypothesis"]
+
+[tool.setuptools]
+py-modules = ["spookyhash"]
+
+[tool.setuptools.dynamic]
+version = {attr = "spookyhash.__version__"}

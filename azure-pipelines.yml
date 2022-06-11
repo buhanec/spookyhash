@@ -34,6 +34,9 @@ strategy:
     linux39:
       versionSpec: '3.9'
       vmImage: ubuntu-latest
+    linux310:
+      versionSpec: '3.10'
+      vmImage: ubuntu-latest
     windows37:
       versionSpec: '3.7'
       vmImage: windows-latest
@@ -42,6 +45,9 @@ strategy:
       vmImage: windows-latest
     windows39:
       versionSpec: '3.9'
+      vmImage: windows-latest
+    windows310:
+      versionSpec: '3.10'
       vmImage: windows-latest
 
 steps:
@@ -52,8 +58,7 @@ steps:
 
 - script: |
     python -m pip install --upgrade pip
-    pip install -r requirements.txt
-    python setup.py install
+    python -m pip install . .[test]
   displayName: pip
 
 - script: pytest
