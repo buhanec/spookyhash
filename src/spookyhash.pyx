@@ -6,7 +6,7 @@ from libc.stdint cimport uint32_t, uint64_t
 cimport SpookyV2
 
 __all__ = ('hash32', 'hash64', 'hash128', 'Hash', 'Hash32', 'Hash64', 'Hash128')
-__version__ = '2.0.2'
+__version__ = '2.1.0'
 
 
 # Oneshot hash functions

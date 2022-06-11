@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from typing import Self
 
 __all__ = ('hash32', 'hash64', 'hash128', 'Hash32', 'Hash64', 'Hash128')
-__version__ = '2.0.2'
+__version__ = '2.1.0'
 
 
 # Utility function for homogenising data
