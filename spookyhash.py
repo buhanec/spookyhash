@@ -24,8 +24,8 @@ def _char_arr(message: Union[bytes, memoryview, None]) -> Tuple[memoryview, int]
             message = memoryview(message)
         except TypeError as e:
             raise TypeError(
-                f"Expecting message to by bytes, memoryview, None, or a type "
-                f"that can be interpreted as as memoryview (e.g. NumPy "
+                f"Expecting message to be bytes, memoryview, None, or a type "
+                f"that can be interpreted as memoryview (e.g. NumPy "
                 f"arrays); instead found "
                 f"{type(message).__module__}.{type(message).__name__}"
             ) from e
