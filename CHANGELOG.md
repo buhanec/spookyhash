@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.1.1 (2022-06-27)
+- Fix project information and error message typos
+
 ## v2.1.0 (2022-06-11)
 - `Hash.hexdigest()` returns `str` rather than `bytes`, in-line with `hashlib`
 - `Hash.__init__()` and `Hash.update()` now take `memoryview` and `memoryview` compatible types (e.g. NumPy arrays)
