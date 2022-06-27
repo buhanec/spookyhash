@@ -7,7 +7,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-authors = [{name = "Alen Buhaec", email = "alen.buhnaec@gmail.com"}]
+authors = [{name = "Alen Buhanec", email = "alen.buhanec@gmail.com"}]
 name = "spookyhash"
 description = "A Python wrapper for SpookyHash version 2"
 readme = "README.md"
