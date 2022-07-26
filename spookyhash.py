@@ -16,9 +16,9 @@ __version__ = '2.1.1'
 
 # Utility function for homogenising data
 
-def _char_arr(message: Union[bytes, memoryview, None]) -> Tuple[memoryview, int]:
+def _char_arr(message: Union[bytes, memoryview, None]) -> memoryview:
     if message is None:
-        return memoryview(b'').cast('c'), 0
+        return memoryview(b'').cast('c')
     if not isinstance(message, memoryview):
         try:
             message = memoryview(message)
@@ -31,7 +31,7 @@ def _char_arr(message: Union[bytes, memoryview, None]) -> Tuple[memoryview, int]
             ) from e
     if message.format != 'c' or not message.contiguous:
         message = message.cast('c')
-    return message, len(message)
+    return message
 
 
 # Oneshot hash functions
@@ -44,7 +44,7 @@ def hash32(message: Union[bytes, memoryview], seed: int = 0) -> int:
     :param seed: 32-bit seed
     :return: 32-bit hash
     """
-    return _spookyhash.hash32(*_char_arr(message), seed)
+    return _spookyhash.hash32(_char_arr(message), seed)
 
 
 def hash64(message: Union[bytes, memoryview], seed: int = 0) -> int:
@@ -55,7 +55,7 @@ def hash64(message: Union[bytes, memoryview], seed: int = 0) -> int:
     :param seed: 64-bit seed
     :return: 64-bit hash
     """
-    return _spookyhash.hash64(*_char_arr(message), seed)
+    return _spookyhash.hash64(_char_arr(message), seed)
 
 
 def hash128_pair(
@@ -71,7 +71,7 @@ def hash128_pair(
     :param seed2: 64-bit seed 2
     :return: Pair of 64-bit hash values
     """
-    digest = _spookyhash.hash128(*_char_arr(message), seed1=seed1, seed2=seed2)
+    digest = _spookyhash.hash128(_char_arr(message), seed1=seed1, seed2=seed2)
     return cast(Tuple[int, int], struct.unpack('=QQ', digest))
 
 
@@ -134,7 +134,7 @@ class Hash(ABC):
         :return: Self
         """
         if message is not None:
-            self._hash.update(*_char_arr(message))
+            self._hash.update(_char_arr(message))
         return self
 
     def digest(self) -> bytes:

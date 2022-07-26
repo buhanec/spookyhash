@@ -3,6 +3,8 @@ from setuptools import Extension, setup
 
 
 setup(
+    name="spookyhash",
+    url="https://github.com/buhanec/spookyhash",
     ext_modules=cythonize(
         [
             Extension(
@@ -12,6 +14,9 @@ setup(
             ),
         ],
         compiler_directives={
+            "cdivision": True,
+            "boundscheck": False,
+            "wraparound": False,
             'embedsignature': True,
             'language_level': 3,
         },
