@@ -27,6 +27,11 @@ classifiers = [
 ]
 dynamic = ["version"]
 
+[project.urls]
+Homepage = "https://github.com/buhanec/spookyhash"
+Repository = "https://github.com/buhanec/spookyhash"
+Issues = "https://github.com/buhanec/spookyhash/issues"
+
 [project.optional-dependencies]
 test = ["pytest", "hypothesis"]
 
