@@ -8,17 +8,17 @@ setup(
     ext_modules=cythonize(
         [
             Extension(
-                '_spookyhash',
-                ['src/spookyhash.pyx', 'src/SpookyV2.cpp'],
-                language='c++',
+                "_spookyhash",
+                ["src/spookyhash.pyx", "src/SpookyV2.cpp"],
+                language="c++",
             ),
         ],
         compiler_directives={
             "cdivision": True,
             "boundscheck": False,
             "wraparound": False,
-            'embedsignature': True,
-            'language_level': 3,
+            "embedsignature": True,
+            "language_level": 3,
         },
     ),
 )
