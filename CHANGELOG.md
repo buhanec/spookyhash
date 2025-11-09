@@ -1,11 +1,8 @@
 # Changelog
 
-## v2.1.2 (2025-11-10)
-
+## v2.1.1 (2025-11-10)
 - release the gil, performance-oriented compiler directives
 - tidy up CI and make package building easier
-
-## v2.1.1 (2022-06-27)
 - Fix project information and error message typos
 
 ## v2.1.0 (2022-06-11)
