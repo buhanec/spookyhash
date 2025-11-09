@@ -1,0 +1,63 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types:
+      - opened
+      - synchronize
+  schedule:
+    # cron every week on monday
+    - cron: "0 0 * * 1"
+
+jobs:
+  test:
+    name: Test on ${{matrix.python-version}} ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - windows-latest
+          - windows-11-arm
+          - macos-15-intel
+          - macos-latest
+        python-version:
+          - "3.7"
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
+          - "3.12"
+          - "3.13"
+          - "3.14"
+        exclude:
+          - os: ubuntu-latest
+            python-version: "3.7"
+          - os: ubuntu-24.04-arm
+            python-version: "3.7"
+          - os: windows-11-arm
+            python-version: "3.7"
+          - os: windows-11-arm
+            python-version: "3.8"
+          - os: windows-11-arm
+            python-version: "3.9"
+          - os: windows-11-arm
+            python-version: "3.10"
+          - os: macos-latest
+            python-version: "3.7"
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - run: pip install -e .[test]
+
+      - run: pytest .
