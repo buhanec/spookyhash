@@ -37,6 +37,10 @@ Repository = "https://github.com/buhanec/spookyhash"
 Issues = "https://github.com/buhanec/spookyhash/issues"
 
 [project.optional-dependencies]
+typing = [
+    "mypy>=1.18",
+    "typing-extensions",
+]
 test = [
     "pytest",
     "hypothesis",
@@ -45,7 +49,10 @@ test = [
 ]
 
 [tool.setuptools]
-py-modules = ["spookyhash"]
+packages = ["spookyhash"]
+
+[tool.setuptools.package-data]
+spookyhash = ["py.typed", "_spookyhash.pyi"]
 
 [tool.setuptools.dynamic]
 version = {attr = "spookyhash.__version__"}

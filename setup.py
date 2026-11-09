@@ -6,7 +6,7 @@ setup(
     ext_modules=cythonize(
         [
             Extension(
-                "_spookyhash",
+                "spookyhash._spookyhash",
                 ["src/spookyhash.pyx", "src/SpookyV2.cpp"],
                 language="c++",
             ),
