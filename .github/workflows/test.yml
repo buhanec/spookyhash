@@ -62,7 +62,10 @@ jobs:
           "
 
       - run: python -m pip install -e '.[typing]'
+        if: matrix.python-version != '3.9'
       - run: mypy --strict spookyhash
+        if: matrix.python-version != '3.9'
       - run: python -m mypy.stubtest spookyhash._spookyhash
+        if: matrix.python-version != '3.9'
 
       - run: pytest .
