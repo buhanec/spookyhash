@@ -77,7 +77,7 @@ Includes `memoryview` compatible types, such as NumPy arrays.
 >>> import spookyhash
 >>> import numpy as np
 
->>> spookyhash.Hash64(np.arange(100)).hexdigest()
+>>> spookyhash.Hash64(np.arange(100, dtype=np.int32)).hexdigest()
 '43ab5363ad362c74'
 
 >>> spookyhash.Hash64(memoryview(b'hello world')).hexdigest()

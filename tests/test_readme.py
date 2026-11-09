@@ -43,7 +43,7 @@ def test_memoryview_support_np():
         import numpy as np
     except ImportError:
         pytest.skip('numpy not available')
-    assert spookyhash.Hash64(np.arange(100)).hexdigest() == '43ab5363ad362c74'
+    assert spookyhash.Hash64(np.arange(100, dtype=np.int32)).hexdigest() == '43ab5363ad362c74'
 
 
 def test_memoryview_support():
