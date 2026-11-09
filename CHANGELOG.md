@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.1.2 (2026-11-10)
+- correctly handle newer NumPy versions in tests
+- add Python 3.15 and free-threaded Python coverage
+- drop Python 3.7 and 3.8 support
+- turn `spookyhash` into a package and properly type hint
+
 ## v2.1.1 (2025-11-10)
 - release the gil, performance-oriented compiler directives
 - tidy up CI and make package building easier

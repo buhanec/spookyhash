@@ -15,7 +15,7 @@ if typing.TYPE_CHECKING:
     _MessageT = bytes | memoryview[bytes] | typing_extensions.Buffer
 
 __all__ = ("hash32", "hash64", "hash128", "Hash32", "Hash64", "Hash128")
-__version__ = "2.1.1"
+__version__ = "2.1.2"
 
 
 # Utility function for homogenising data
