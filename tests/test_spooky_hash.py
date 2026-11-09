@@ -215,3 +215,34 @@ def test_none_init_and_upate(cls, seed, expected_digest):
     else:
         builder = cls(None, seed=seed)
     assert builder.update(None).hexdigest() == expected_digest
+
+
+@pytest.mark.parametrize('dtype', [
+    'int8',
+    'int16',
+    'int32',
+    'int64',
+    'uint8',
+    'uint16',
+    'uint32',
+    'uint64',
+    'float32',
+    'float64',
+])
+def test_memoryview_np_hashes_underlying_buffer(dtype):
+    np = pytest.importorskip('numpy')
+    array = np.arange(100, dtype=dtype)
+    expected = spookyhash.hash64(array.tobytes())
+
+    assert spookyhash.hash64(array) == expected
+    assert spookyhash.Hash64(array).final() == expected
+    assert spookyhash.Hash64().update(array).final() == expected
+
+
+def test_memoryview_np_multidimensional_buffer():
+    np = pytest.importorskip('numpy')
+    array = np.arange(100, dtype=np.int32).reshape(10, 10)
+    expected = spookyhash.hash64(array.tobytes())
+
+    assert spookyhash.hash64(array) == expected
+    assert spookyhash.Hash64().update(array).final() == expected
