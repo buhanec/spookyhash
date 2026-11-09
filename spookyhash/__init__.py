@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 import struct
+import typing
 from abc import ABC, abstractmethod
 from binascii import hexlify
-from typing import ClassVar, TYPE_CHECKING, Tuple, Type, Union, cast
+
+if typing.TYPE_CHECKING:
+    import typing_extensions
 
 from . import _spookyhash
-
-if TYPE_CHECKING:
-    from typing_extensions import Self
 
 __all__ = ("hash32", "hash64", "hash128", "Hash32", "Hash64", "Hash128")
 __version__ = "2.1.1"
@@ -19,7 +19,7 @@ __version__ = "2.1.1"
 # Utility function for homogenising data
 
 
-def _char_arr(message: Union[bytes, memoryview[bytes], None]) -> memoryview[bytes]:
+def _char_arr(message: bytes | memoryview[bytes] | None) -> memoryview[bytes]:
     if message is None:
         return memoryview(b"").cast("c")
     if not isinstance(message, memoryview):
@@ -40,7 +40,7 @@ def _char_arr(message: Union[bytes, memoryview[bytes], None]) -> memoryview[byte
 # Oneshot hash functions
 
 
-def hash32(message: Union[bytes, memoryview[bytes]], seed: int = 0) -> int:
+def hash32(message: bytes | memoryview[bytes], seed: int = 0) -> int:
     """
     Hash a single message in one call, produce 32-bit output.
 
@@ -51,7 +51,7 @@ def hash32(message: Union[bytes, memoryview[bytes]], seed: int = 0) -> int:
     return _spookyhash.hash32(_char_arr(message), seed)
 
 
-def hash64(message: Union[bytes, memoryview[bytes]], seed: int = 0) -> int:
+def hash64(message: bytes | memoryview[bytes], seed: int = 0) -> int:
     """
     Hash a single message in one call, produce 64-bit output.
 
@@ -63,10 +63,10 @@ def hash64(message: Union[bytes, memoryview[bytes]], seed: int = 0) -> int:
 
 
 def hash128_pair(
-    message: Union[bytes, memoryview[bytes]],
+    message: bytes | memoryview[bytes],
     seed1: int = 0,
     seed2: int = 0,
-) -> Tuple[int, int]:
+) -> tuple[int, int]:
     """
     Hash a single message in one call, produce 128-bit output.
 
@@ -80,7 +80,7 @@ def hash128_pair(
 
 
 def hash128(
-    message: Union[bytes, memoryview[bytes]],
+    message: bytes | memoryview[bytes],
     seed1: int = 0,
     seed2: int = 0,
 ) -> int:
@@ -102,12 +102,12 @@ def hash128(
 class Hash(ABC):
     """Base class for incremental hash builders."""
 
-    digest_size: ClassVar[int]
-    _hash_cls: ClassVar[Type[_spookyhash.Hash]]
+    digest_size: typing.ClassVar[int]
+    _hash_cls: typing.ClassVar[type[_spookyhash.Hash]]
 
     def __init__(
         self,
-        message: Union[bytes, memoryview[bytes], None] = None,
+        message: bytes | memoryview[bytes] | None = None,
         seed1: int = 0,
         seed2: int = 0,
     ) -> None:
@@ -126,7 +126,7 @@ class Hash(ABC):
         super().__init_subclass__()
         cls.digest_size = cls._hash_cls.digest_size
 
-    def update(self, message: Union[bytes, memoryview[bytes], None]) -> Self:
+    def update(self, message: bytes | memoryview[bytes] | None) -> typing_extensions.Self:
         """
         Incrementally update hash with message fragment.
 
@@ -170,7 +170,7 @@ class Hash32(Hash):
 
     def __init__(
         self,
-        message: Union[bytes, memoryview[bytes], None] = None,
+        message: bytes | memoryview[bytes] | None = None,
         seed: int = 0,
     ) -> None:
         """
@@ -187,7 +187,7 @@ class Hash32(Hash):
 
         :return: Hash
         """
-        return cast(int, struct.unpack("=L", self.digest())[0])
+        return typing.cast(int, struct.unpack("=L", self.digest())[0])
 
 
 class Hash64(Hash):
@@ -196,7 +196,7 @@ class Hash64(Hash):
 
     def __init__(
         self,
-        message: Union[bytes, memoryview[bytes], None] = None,
+        message: bytes | memoryview[bytes] | None = None,
         seed: int = 0,
     ) -> None:
         """
@@ -213,14 +213,14 @@ class Hash64(Hash):
 
         :return: Hash
         """
-        return cast(int, struct.unpack("=Q", self.digest())[0])
+        return typing.cast(int, struct.unpack("=Q", self.digest())[0])
 
 
 class Hash128(Hash):
 
     _hash_cls = _spookyhash.Hash128
 
-    def final_pair(self) -> Tuple[int, int]:
+    def final_pair(self) -> tuple[int, int]:
         """
         Compute the hash for the concatenation of all message fragments.
 

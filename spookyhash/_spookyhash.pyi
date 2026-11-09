@@ -1,8 +1,8 @@
 """Type stubs for SpookyHash Cython code."""
 
-from typing import ClassVar
+import typing
 
-from typing_extensions import Self, disjoint_base
+import typing_extensions
 
 __all__ = ("hash32", "hash64", "hash128", "Hash", "Hash32", "Hash64", "Hash128")
 __version__: str
@@ -10,11 +10,12 @@ __version__: str
 def hash32(message: bytes | memoryview[bytes], seed: int = 0) -> int: ...
 def hash64(message: bytes | memoryview[bytes], seed: int = 0) -> int: ...
 def hash128(message: bytes | memoryview[bytes], seed1: int = 0, seed2: int = 0) -> bytes: ...
-@disjoint_base
-class Hash:
-    def __new__(cls, seed1: int, seed2: int) -> Self: ...
 
-    digest_size: ClassVar[int]
+@typing_extensions.disjoint_base
+class Hash:
+    def __new__(cls, seed1: int, seed2: int) -> typing_extensions.Self: ...
+
+    digest_size: typing.ClassVar[int]
 
     def update(self, message: bytes | memoryview[bytes]) -> None: ...
     def digest(self) -> bytes: ...
