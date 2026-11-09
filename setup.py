@@ -17,6 +17,7 @@ setup(
             "wraparound": False,
             "embedsignature": True,
             "language_level": 3,
+            "freethreading_compatible": True,
         },
     ),
 )
