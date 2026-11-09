@@ -39,10 +39,7 @@ def test_incremental_hashes():
 
 
 def test_memoryview_support_np():
-    try:
-        import numpy as np
-    except ImportError:
-        pytest.skip('numpy not available')
+    np = pytest.importorskip('numpy')
     assert spookyhash.Hash64(np.arange(100, dtype=np.int32)).hexdigest() == '43ab5363ad362c74'
 
 
