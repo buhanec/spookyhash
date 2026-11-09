@@ -17,10 +17,9 @@ def test_version_consistent():
 
 @pytest.mark.skipif(not changelog_path.exists(), reason="Changelog not found")
 def test_version_changelog():
-    for line in changelog_path.read_text().splitlines():
-        if line.startswith("##"):
-            _, changelog_version, *_ = line.split()
-            assert changelog_version == f'v{spookyhash.__version__}'
-            break
-    else:
-        pytest.fail('Could not find versions in changelog')
+    versions = [
+        line.split()[1]
+        for line in changelog_path.read_text().splitlines()
+        if line.startswith("##")
+    ]
+    assert versions[0] == f'v{spookyhash.__version__}'
