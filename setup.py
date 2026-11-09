@@ -18,5 +18,6 @@ setup(
             "language_level": 3,
             "freethreading_compatible": True,
         },
+        build_dir="build/cython",
     ),
 )
