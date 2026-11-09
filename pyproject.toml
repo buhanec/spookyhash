@@ -37,7 +37,12 @@ Repository = "https://github.com/buhanec/spookyhash"
 Issues = "https://github.com/buhanec/spookyhash/issues"
 
 [project.optional-dependencies]
-test = ["pytest", "hypothesis", "numpy"]
+test = [
+    "pytest",
+    "hypothesis",
+    # only publishes win_arm64 wheels for CPython 3.11+
+    "numpy; python_version >= '3.11' or sys_platform != 'win32' or platform_machine != 'ARM64'",
+]
 
 [tool.setuptools]
 py-modules = ["spookyhash"]
