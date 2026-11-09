@@ -63,4 +63,8 @@ jobs:
 
       - run: pip install -e .[test]
 
+      - run: python -m pip install -e '.[typing]'
+      - run: mypy --strict spookyhash
+      - run: python -m mypy.stubtest spookyhash._spookyhash
+
       - run: pytest .

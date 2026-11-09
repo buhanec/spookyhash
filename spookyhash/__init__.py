@@ -1,14 +1,16 @@
 """A Python wrapper for SpookyHash version 2."""
 
+from __future__ import annotations
+
 import struct
 from abc import ABC, abstractmethod
 from binascii import hexlify
 from typing import ClassVar, TYPE_CHECKING, Tuple, Type, Union, cast
 
-import _spookyhash
+from . import _spookyhash
 
 if TYPE_CHECKING:
-    from typing import Self
+    from typing_extensions import Self
 
 __all__ = ('hash32', 'hash64', 'hash128', 'Hash32', 'Hash64', 'Hash128')
 __version__ = '2.1.1'
@@ -16,7 +18,7 @@ __version__ = '2.1.1'
 
 # Utility function for homogenising data
 
-def _char_arr(message: Union[bytes, memoryview, None]) -> memoryview:
+def _char_arr(message: Union[bytes, memoryview[bytes], None]) -> memoryview[bytes]:
     if message is None:
         return memoryview(b'').cast('c')
     if not isinstance(message, memoryview):
@@ -36,7 +38,7 @@ def _char_arr(message: Union[bytes, memoryview, None]) -> memoryview:
 
 # Oneshot hash functions
 
-def hash32(message: Union[bytes, memoryview], seed: int = 0) -> int:
+def hash32(message: Union[bytes, memoryview[bytes]], seed: int = 0) -> int:
     """
     Hash a single message in one call, produce 32-bit output.
 
@@ -47,7 +49,7 @@ def hash32(message: Union[bytes, memoryview], seed: int = 0) -> int:
     return _spookyhash.hash32(_char_arr(message), seed)
 
 
-def hash64(message: Union[bytes, memoryview], seed: int = 0) -> int:
+def hash64(message: Union[bytes, memoryview[bytes]], seed: int = 0) -> int:
     """
     Hash a single message in one call, produce 64-bit output.
 
@@ -59,7 +61,7 @@ def hash64(message: Union[bytes, memoryview], seed: int = 0) -> int:
 
 
 def hash128_pair(
-    message: Union[bytes, memoryview],
+    message: Union[bytes, memoryview[bytes]],
     seed1: int = 0,
     seed2: int = 0,
 ) -> Tuple[int, int]:
@@ -72,11 +74,11 @@ def hash128_pair(
     :return: Pair of 64-bit hash values
     """
     digest = _spookyhash.hash128(_char_arr(message), seed1=seed1, seed2=seed2)
-    return cast(Tuple[int, int], struct.unpack('=QQ', digest))
+    return struct.unpack('=QQ', digest)
 
 
 def hash128(
-    message: Union[bytes, memoryview],
+    message: Union[bytes, memoryview[bytes]],
     seed1: int = 0,
     seed2: int = 0,
 ) -> int:
@@ -102,7 +104,7 @@ class Hash(ABC):
 
     def __init__(
         self,
-        message: Union[bytes, memoryview, None] = None,
+        message: Union[bytes, memoryview[bytes], None] = None,
         seed1: int = 0,
         seed2: int = 0,
     ) -> None:
@@ -117,16 +119,11 @@ class Hash(ABC):
         if message is not None:
             self.update(message)
 
-    @property
-    def digest_size(self) -> int:
-        """
-        Digest size.
+    def __init_subclass__(cls) -> None:
+        super().__init_subclass__()
+        cls.digest_size = cls._hash_cls.digest_size
 
-        :return: Digest size
-        """
-        return self._hash.digest_size
-
-    def update(self, message: Union[bytes, memoryview, None]) -> 'Self':
+    def update(self, message: Union[bytes, memoryview[bytes], None]) -> Self:
         """
         Incrementally update hash with message fragment.
 
@@ -160,7 +157,7 @@ class Hash(ABC):
 
         :return: Hash
         """
-        return NotImplemented
+        raise NotImplementedError
 
 
 class Hash32(Hash):
@@ -170,7 +167,7 @@ class Hash32(Hash):
 
     def __init__(
         self,
-        message: Union[bytes, memoryview, None] = None,
+        message: Union[bytes, memoryview[bytes], None] = None,
         seed: int = 0,
     ) -> None:
         """
@@ -187,7 +184,7 @@ class Hash32(Hash):
 
         :return: Hash
         """
-        return struct.unpack('=L', self.digest())[0]
+        return cast(int, struct.unpack('=L', self.digest())[0])
 
 
 class Hash64(Hash):
@@ -196,7 +193,7 @@ class Hash64(Hash):
 
     def __init__(
         self,
-        message: Union[bytes, memoryview, None] = None,
+        message: Union[bytes, memoryview[bytes], None] = None,
         seed: int = 0,
     ) -> None:
         """
@@ -213,7 +210,7 @@ class Hash64(Hash):
 
         :return: Hash
         """
-        return struct.unpack('=Q', self.digest())[0]
+        return cast(int, struct.unpack('=Q', self.digest())[0])
 
 
 class Hash128(Hash):
@@ -228,7 +225,7 @@ class Hash128(Hash):
 
         :return: Pair of 64-bit integers representing the hash
         """
-        return cast(Tuple[int, int], struct.unpack('=QQ', self.digest()))
+        return struct.unpack('=QQ', self.digest())
 
     def final(self) -> int:
         """
