@@ -59,8 +59,7 @@ cpdef bytes hash128(
 
 cdef class Hash:
     cdef SpookyV2.SpookyHash hash
-    cdef readonly int _digest_size
-    digest_size = 0
+    cdef readonly int digest_size
 
     def __cinit__(Hash self, *args, **kwargs):
         pass
@@ -76,35 +75,32 @@ cdef class Hash:
         cdef uint64_t digest[2]
         with nogil:
             self.hash.Final(&digest[0], &digest[1])
-        return (<char*> digest)[:self._digest_size]
+        return (<char*> digest)[:self.digest_size]
 
 
 cdef class Hash32(Hash):
-    digest_size = 4
 
     def __cinit__(Hash32 self, uint32_t seed1, uint32_t seed2):
         if seed1 != seed2:
             raise ValueError('Expecting seed1 and seed2 to be the same')
         with nogil:
             self.hash.Init(seed1, seed1)
-        self._digest_size = self.digest_size
+        self.digest_size = 4
 
 
 cdef class Hash64(Hash):
-    digest_size = 8
 
     def __cinit__(Hash64 self, uint64_t seed1, uint64_t seed2):
         if seed1 != seed2:
             raise ValueError('Expecting seed1 and seed2 to be the same')
         with nogil:
             self.hash.Init(seed1, seed1)
-        self._digest_size = self.digest_size
+        self.digest_size = 8
 
 
 cdef class Hash128(Hash):
-    digest_size = 16
 
     def __cinit__(Hash128 self, uint64_t seed1, uint64_t seed2):
         with nogil:
             self.hash.Init(seed1, seed2)
-        self._digest_size = self.digest_size
+        self.digest_size = 16

@@ -125,7 +125,7 @@ class Hash(ABC):
 
     def __init_subclass__(cls) -> None:
         super().__init_subclass__()
-        cls.digest_size = cls._hash_cls.digest_size
+        cls.digest_size = cls._hash_cls(0, 0).digest_size
 
     def update(self, message: _MessageT | None) -> typing_extensions.Self:
         """
