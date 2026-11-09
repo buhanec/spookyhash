@@ -246,3 +246,13 @@ def test_memoryview_np_multidimensional_buffer():
 
     assert spookyhash.hash64(array) == expected
     assert spookyhash.Hash64().update(array).final() == expected
+
+
+@pytest.mark.parametrize('hash_type, expected', [
+    (spookyhash.Hash32, 4),
+    (spookyhash.Hash64, 8),
+    (spookyhash.Hash128, 16),
+])
+def test_digest_size(hash_type, expected):
+    assert hash_type.digest_size == expected
+    assert hash_type().digest_size == expected
