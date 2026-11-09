@@ -35,6 +35,8 @@ def _char_arr(message: _MessageT | None) -> memoryview[bytes]:
             ) from e
     if message.format != "c" or not message.contiguous:
         message = message.cast("c")
+    if typing.TYPE_CHECKING:
+        message = typing.cast(memoryview[bytes], message)
     return message
 
 
