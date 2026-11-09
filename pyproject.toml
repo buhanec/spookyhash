@@ -10,6 +10,7 @@ authors = [{name = "Alen Buhanec", email = "alen.buhanec@gmail.com"}]
 name = "spookyhash"
 description = "A Python wrapper for SpookyHash version 2"
 readme = "README.md"
+requires-python = ">=3.7"
 keywords = ["SpookyHash", "hashlib"]
 license = "MIT"
 classifiers = [
